@@ -70,21 +70,27 @@ class Trajector:
                     user_ids_labels.append((endpart, False))
         
         
-        query = "INSERT INTO User (id, has_label) VALUES ('%s', %s)"
+        query = "INSERT INTO User (id, has_labels) VALUES ('%s', %s)"
 
         for id, has_label in user_ids_labels:
             self.cursor.execute(query % (id, has_label))
         
         self.db_connection.commit()
 
+    def show_user_columns(self):
+        self.cursor.execute("SELECT * FROM db1.User;")
+        rows = self.cursor.fetchall()
+        print(tabulate(rows, headers=self.cursor.column_names))
+
 
 def main():
     program = None
     try:
         program = Trajector()
-        #program.create_table()
-        #program.show_tables()
-        program.insert_data()
+        program.create_table()
+        program.show_tables()
+        program.insert_data_user()
+        program.show_user_columns()
     except Exception as e:
         print("ERROR: Failed to use database:", e)
     finally:
