@@ -1,14 +1,88 @@
 from DbConnector import DbConnector
 from tabulate import tabulate
 import os
+import datetime
 
 class Trajector:
-    
     def __init__(self):
         self.connection = DbConnector()
         self.db_connection = self.connection.db_connection
         self.cursor = self.connection.cursor
         self.dataset_path = "/home/alexandermoltu/Documents/H24/TDT4225/assignment_2/dataset/dataset"
+    
+    # Insert Activity Data
+    def insert_data_activity(self):
+        activity_id = 0
+        labeled_txt_user = {}
+        
+        # Load labels.txt into a dictionary for easier lookup
+        for user_id in os.listdir(self.dataset_path):
+            user_folder = os.path.join(self.dataset_path, user_id)
+            labels_path = os.path.join(user_folder, 'labels.txt')
+            if os.path.exists(labels_path):
+                with open(labels_path) as label_file:
+                    for line in label_file.readlines()[1:]:  # Skip header
+                        start_time, end_time, mode = line.strip().split('\t')
+                        if user_id not in labeled_txt_user:
+                            labeled_txt_user[user_id] = []
+                        labeled_txt_user[user_id].append((start_time, end_time, mode))
+
+        # Insert activities
+        for user_id in os.listdir(self.dataset_path):
+            trajectory_folder = os.path.join(self.dataset_path, user_id, 'Trajectory')
+            if not os.path.exists(trajectory_folder):
+                continue
+            
+            for file in os.listdir(trajectory_folder):
+                if file.endswith('.plt'):
+                    plt_file_path = os.path.join(trajectory_folder, file)
+                    with open(plt_file_path) as plt_file:
+                        lines = plt_file.readlines()[6:]  # Skip the first 6 header lines
+
+                        # Skip files with more than 2500 trackpoints
+                        if len(lines) > 2500:
+                            continue
+
+                        start_date_time = self.get_datetime_from_line(lines[0])
+                        end_date_time = self.get_datetime_from_line(lines[-1])
+                        
+                        # Check if transportation mode is available in labels
+                        transportation_mode = None
+                        if user_id in labeled_txt_user:
+                            for start_time, end_time, mode in labeled_txt_user[user_id]:
+                                if start_time == start_date_time and end_time == end_date_time:
+                                    transportation_mode = mode
+                                    break
+                        
+                        # Insert activity
+                        activity_query = "INSERT INTO Activity (id, user_id, transportation_mode, start_date_time, end_time) VALUES (%s, %s, %s, %s, %s)"
+                        self.cursor.execute(activity_query, (activity_id, user_id, transportation_mode, start_date_time, end_date_time))
+                        self.db_connection.commit()
+
+                        # Insert trackpoints for the activity
+                        self.insert_data_trackpoints(activity_id, lines)
+                        activity_id += 1
+
+    # Helper function to parse the datetime from a line in the .plt file
+    def get_datetime_from_line(self, line):
+        parts = line.strip().split(',')
+        date = parts[5]  # Date part
+        time = parts[6]  # Time part
+        return datetime.datetime.strptime(f"{date} {time}", "%Y-%m-%d %H:%M:%S")
+
+    # Insert TrackPoint data
+    def insert_data_trackpoints(self, activity_id, lines):
+        trackpoint_query = "INSERT INTO TrackPoint (activity_id, lat, lon, altitude, date_days, date_time) VALUES (%s, %s, %s, %s, %s, %s)"
+        trackpoints = []
+
+        for line in lines:
+            lat, lon, _, altitude, date_days, date_str, time_str = line.strip().split(',')
+            date_time = f"{date_str} {time_str}"
+            trackpoints.append((activity_id, float(lat), float(lon), int(altitude), float(date_days), date_time))
+
+        # Insert trackpoints in batch
+        self.cursor.executemany(trackpoint_query, trackpoints)
+        self.db_connection.commit()
 
     def create_table(self):
         query = ["""CREATE TABLE IF NOT EXISTS User (
@@ -82,23 +156,19 @@ class Trajector:
         self.cursor.execute("SELECT * FROM db1.User;")
         rows = self.cursor.fetchall()
         print(tabulate(rows, headers=self.cursor.column_names))
-
-
+        
 def main():
     program = None
     try:
         program = Trajector()
         program.create_table()
-        program.show_tables()
-        program.insert_data_user()
-        program.show_user_columns()
+        # program.insert_data_user()  # Insert User data
+        program.insert_data_activity()  # Insert Activity and TrackPoint data
     except Exception as e:
         print("ERROR: Failed to use database:", e)
     finally:
         if program:
             program.connection.close_connection()
 
-
 if __name__ == '__main__':
     main()
-    
