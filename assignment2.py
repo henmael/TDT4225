@@ -8,7 +8,8 @@ class Trajector:
         self.connection = DbConnector()
         self.db_connection = self.connection.db_connection
         self.cursor = self.connection.cursor
-    
+        self.dataset_path = "/home/alexandermoltu/Documents/H24/TDT4225/assignment_2/dataset/dataset"
+
     def create_table(self):
         query = ["""CREATE TABLE IF NOT EXISTS User (
                 id VARCHAR(3) NOT NULL PRIMARY KEY,
@@ -49,10 +50,10 @@ class Trajector:
         labeled_txt_user = []
         user_ids_labels = []
         
-        with open('C:/Users/henri/Desktop/dataset/labeled_ids.txt') as labeled_file_user:
+        with open(self.dataset_path + '/labeled_ids.txt') as labeled_file_user:
             labeled_txt_user = labeled_file_user.read().splitlines()[::-1]
         
-        for (root,dirs,files) in os.walk('C:/Users/henri/Desktop/dataset', topdown=True):
+        for (root,dirs,files) in os.walk(self.dataset_path, topdown=True):
             if 'labels.txt' in files:
                 print(f"Found labels.txt in: {root}")
                 parts = root.replace('\\', '/').split('/')
@@ -100,4 +101,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-
+    
