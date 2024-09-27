@@ -26,6 +26,16 @@ class Trajector:
                 with open(labels_path) as label_file:
                     for line in label_file.readlines()[1:]:  # Skip header
                         start_time, end_time, mode = line.strip().split('\t')
+
+                        start_time = datetime.datetime.strptime(start_time, "%Y-%m-%d %H:%M:%S")
+                        end_time = datetime.datetime.strptime(end_time, "%Y/%m/%d %H:%M:%S")
+
+
+                        # start_time = start_time.replace('/', '-')
+                        # end_time = end_time.replace('/', '-')
+                        # print(start_time, end_time)
+
+
                         if user_id not in labeled_txt_user:
                             labeled_txt_user[user_id] = []
                         labeled_txt_user[user_id].append((start_time, end_time, mode))
@@ -52,17 +62,10 @@ class Trajector:
                         # Check if transportation mode is available in labels
                         transportation_mode = None
                         if user_id in labeled_txt_user:
-                            # print(user_id)
                             for start_time, end_time, mode in labeled_txt_user[user_id]:
-                                # print(start_time, end_time, mode)
-
-                                print(start_time)
-                                print(start_date_time)
-                                print()
                                 if start_time == start_date_time and end_time == end_date_time:
                                     transportation_mode = mode
                                     print(start_date_time, end_date_time, transportation_mode)
-
                                     break
                         
                         # Insert activity
