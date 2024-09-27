@@ -9,6 +9,7 @@ class Trajector:
         self.db_connection = self.connection.db_connection
         self.cursor = self.connection.cursor
         self.dataset_path = "/home/alexandermoltu/Documents/H24/TDT4225/assignment_2/dataset/dataset"
+        self.data = self.dataset_path + "/Data"
     
     # Insert Activity Data
     def insert_data_activity(self):
@@ -16,9 +17,11 @@ class Trajector:
         labeled_txt_user = {}
         
         # Load labels.txt into a dictionary for easier lookup
-        for user_id in os.listdir(self.dataset_path):
-            user_folder = os.path.join(self.dataset_path, user_id)
+        for user_id in os.listdir(self.data):
+            # print(user_id, os.listdir(self.data))
+            user_folder = os.path.join(self.data, user_id)
             labels_path = os.path.join(user_folder, 'labels.txt')
+            # print("heisann", labels_path)
             if os.path.exists(labels_path):
                 with open(labels_path) as label_file:
                     for line in label_file.readlines()[1:]:  # Skip header
@@ -28,8 +31,8 @@ class Trajector:
                         labeled_txt_user[user_id].append((start_time, end_time, mode))
 
         # Insert activities
-        for user_id in os.listdir(self.dataset_path):
-            trajectory_folder = os.path.join(self.dataset_path, user_id, 'Trajectory')
+        for user_id in os.listdir(self.data):
+            trajectory_folder = os.path.join(self.data, user_id, 'Trajectory')
             if not os.path.exists(trajectory_folder):
                 continue
             
@@ -45,13 +48,21 @@ class Trajector:
 
                         start_date_time = self.get_datetime_from_line(lines[0])
                         end_date_time = self.get_datetime_from_line(lines[-1])
-                        
+
                         # Check if transportation mode is available in labels
                         transportation_mode = None
                         if user_id in labeled_txt_user:
+                            # print(user_id)
                             for start_time, end_time, mode in labeled_txt_user[user_id]:
+                                # print(start_time, end_time, mode)
+
+                                print(start_time)
+                                print(start_date_time)
+                                print()
                                 if start_time == start_date_time and end_time == end_date_time:
                                     transportation_mode = mode
+                                    print(start_date_time, end_date_time, transportation_mode)
+
                                     break
                         
                         # Insert activity
@@ -78,6 +89,7 @@ class Trajector:
         for line in lines:
             lat, lon, _, altitude, date_days, date_str, time_str = line.strip().split(',')
             date_time = f"{date_str} {time_str}"
+            print((activity_id, float(lat), float(lon), int(altitude), float(date_days), date_time))
             trackpoints.append((activity_id, float(lat), float(lon), int(altitude), float(date_days), date_time))
 
         # Insert trackpoints in batch
