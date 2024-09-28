@@ -8,13 +8,13 @@ class Trajector:
         self.connection = DbConnector()
         self.db_connection = self.connection.db_connection
         self.cursor = self.connection.cursor
-        self.dataset_path = "/home/alexandermoltu/Documents/H24/TDT4225/assignment_2/dataset/dataset"
+        self.dataset_path = "<path_to_dataset>"
         self.data = self.dataset_path + "/Data"
     
     # Insert Activity Data
     def insert_data_activity(self):
-        activity_id = 0
         labeled_txt_user = {}
+        activity_id = 0
         
         # Load labels.txt into a dictionary for easier lookup
         for user_id in os.listdir(self.data):
@@ -26,15 +26,10 @@ class Trajector:
                 with open(labels_path) as label_file:
                     for line in label_file.readlines()[1:]:  # Skip header
                         start_time, end_time, mode = line.strip().split('\t')
+                        start_time = start_time.replace('/', '-')  
 
                         start_time = datetime.datetime.strptime(start_time, "%Y-%m-%d %H:%M:%S")
                         end_time = datetime.datetime.strptime(end_time, "%Y/%m/%d %H:%M:%S")
-
-
-                        # start_time = start_time.replace('/', '-')
-                        # end_time = end_time.replace('/', '-')
-                        # print(start_time, end_time)
-
 
                         if user_id not in labeled_txt_user:
                             labeled_txt_user[user_id] = []
@@ -73,7 +68,7 @@ class Trajector:
                         self.cursor.execute(activity_query, (activity_id, user_id, transportation_mode, start_date_time, end_date_time))
                         self.db_connection.commit()
 
-                        # Insert trackpoints for the activity
+
                         self.insert_data_trackpoints(activity_id, lines)
                         activity_id += 1
 
@@ -92,11 +87,12 @@ class Trajector:
         for line in lines:
             lat, lon, _, altitude, date_days, date_str, time_str = line.strip().split(',')
             date_time = f"{date_str} {time_str}"
-            print((activity_id, float(lat), float(lon), int(altitude), float(date_days), date_time))
-            trackpoints.append((activity_id, float(lat), float(lon), int(altitude), float(date_days), date_time))
+            print((activity_id, float(lat), float(lon), int(float(altitude)), float(date_days), date_time))
+            trackpoints.append((activity_id, float(lat), float(lon), int(float(altitude)), float(date_days), date_time))
 
         # Insert trackpoints in batch
-        self.cursor.executemany(trackpoint_query, trackpoints)
+        if trackpoints:
+            self.cursor.executemany(trackpoint_query, trackpoints)
         self.db_connection.commit()
 
     def create_table(self):
@@ -114,7 +110,7 @@ class Trajector:
                 FOREIGN KEY(user_id) REFERENCES User(id) ON DELETE CASCADE);""",
 
                 """CREATE TABLE IF NOT EXISTS TrackPoint (
-                id INT NOT NULL PRIMARY KEY,
+                id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
                 activity_id INT,
                 lat DOUBLE DEFAULT NULL,
                 lon DOUBLE DEFAULT NULL,
@@ -166,18 +162,13 @@ class Trajector:
             self.cursor.execute(query % (id, has_label))
         
         self.db_connection.commit()
-
-    def show_user_columns(self):
-        self.cursor.execute("SELECT * FROM db1.User;")
-        rows = self.cursor.fetchall()
-        print(tabulate(rows, headers=self.cursor.column_names))
         
 def main():
     program = None
     try:
         program = Trajector()
         program.create_table()
-        # program.insert_data_user()  # Insert User data
+        program.insert_data_user()  # Insert User data
         program.insert_data_activity()  # Insert Activity and TrackPoint data
     except Exception as e:
         print("ERROR: Failed to use database:", e)
