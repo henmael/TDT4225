@@ -1,4 +1,3 @@
-from decimal import Decimal
 from DbConnector import DbConnector
 from tabulate import tabulate
 
