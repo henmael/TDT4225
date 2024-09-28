@@ -163,7 +163,7 @@ class Trajector:
         
         self.db_connection.commit()
         
-def main():
+def trajector_main():
     program = None
     try:
         program = Trajector()
@@ -175,6 +175,3 @@ def main():
     finally:
         if program:
             program.connection.close_connection()
-
-if __name__ == '__main__':
-    main()

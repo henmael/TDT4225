@@ -2,7 +2,7 @@ from DbConnector import DbConnector
 from tabulate import tabulate
 
 
-class TrajectorQueries:
+class Task1:
     def __init__(self):
         self.connection = DbConnector()
         self.db_connection = self.connection.db_connection
@@ -26,8 +26,7 @@ class TrajectorQueries:
         
         print(tabulate(table_data, headers=["Table", "Total rows"]))
 
-if __name__ == '__main__':
-    program = None
-    program = TrajectorQueries()
+def task1_main():
+    program = Task1()
     program.retrieve_amount_tables()
     program.connection.close_connection()
