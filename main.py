@@ -1,5 +1,6 @@
 from assignment2 import trajector_main
 from part2.task1 import task1_main
+from part2.task11 import task11_main
 from part2.task2 import task2_main
 from part2.task3 import task3_main
 from part2.task4 import task4_main
@@ -29,13 +30,19 @@ if __name__ == '__main__':
     task5_main()
     
     # Task 6
-    #task6_main()
+    task6_main()
 
     # Task 7
     task7_main()
 
     # Task 8
-    #task8_main()
+    task8_main()
+
+    # Task 9
+    task9_main()
 
     # Task 10
     task10_main()
+
+    # Task 11
+    task11_main()
