@@ -1,11 +1,6 @@
 from DbConnector import DbConnector
 from tabulate import tabulate
 
-# Find all types of transportation modes and count how many activities that are
-# tagged with these transportation mode labels. Do not count the rows where
-# the mode is null.
-
-
 class Task5:
     def __init__(self):
         self.connection = DbConnector()
