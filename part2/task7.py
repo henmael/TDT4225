@@ -1,7 +1,6 @@
 import math
 from tabulate import tabulate
 from DbConnector import DbConnector
-#Find the total distance (in km) walked in 2008, by user with id=112.
 
 class Task7:
     def __init__(self):
@@ -46,8 +45,9 @@ class Task7:
                 # Calculate the distance between consecutive points
                 distance = self.haversine(lat1, lon1, lat2, lon2)
                 total_distance += distance
-        
-        print(f"Total distance walked in 2008 by user 112: {total_distance} km")
+        data = [[112, 2008, total_distance]]
+        #print(f"Total distance walked in 2008 by user 112: {total_distance} km")
+        print(tabulate(data, headers=["User ID", "Year", "Total distance"]))
 
 
 def task7_main():
