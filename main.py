@@ -3,7 +3,7 @@ from part2.task1 import task1_main
 from part2.task2 import task2_main
 from part2.task3 import task3_main
 from part2.task4 import task4_main
-
+from part2.task6 import task6_main
 
 if __name__ == '__main__':
     # Insert tables and values in database
@@ -20,5 +20,7 @@ if __name__ == '__main__':
 
     # Task 4
     task4_main()
-
+    
+    # Task 6
+    task6_main()
 
