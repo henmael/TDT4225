@@ -38,6 +38,9 @@ if __name__ == '__main__':
     # Task 8
     task8_main()
 
+    # Task 9
+    task9_main()
+
     # Task 10
     task10_main()
 
