@@ -5,6 +5,8 @@ from part2.task3 import task3_main
 from part2.task4 import task4_main
 from part2.task5 import task5_main
 
+from part2.task8 import task8_main
+
 
 if __name__ == '__main__':
     # Insert tables and values in database
@@ -23,5 +25,7 @@ if __name__ == '__main__':
     # task4_main()
 
     # Task 5
-    task5_main()
+    # task5_main()
 
+    # Task 8
+    task8_main()
