@@ -15,35 +15,14 @@ if __name__ == '__main__':
     # Insert tables and values in database
     # trajector_main()
 
-    # Task 1
-    task1_main()
-
-    # Task 2
-    task2_main()
-
-    # Task 3
-    task3_main()
-
-    # Task 4
-    task4_main()
-
-    # Task 5
-    task5_main()
-    
-    # Task 6
-    task6_main()
-
-    # Task 7
-    task7_main()
-
-    # Task 8
+    # task1_main()
+    # task2_main()
+    # task3_main()
+    # task4_main()
+    # task5_main()
+    # task6_main()
+    # task7_main()
     task8_main()
-
-    # Task 9
-    task9_main()
-
-    # Task 10
-    task10_main()
-
-    # Task 11
-    task11_main()
+    # task9_main()
+    # task10_main()
+    # task11_main()
