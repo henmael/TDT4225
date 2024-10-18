@@ -18,7 +18,7 @@ class DbConnector:
                  HOST="tdt4225-32.idi.ntnu.no",
                  DATABASE="db1",
                  USER="group32",
-                 PASSWORD="<password>"):
+                 PASSWORD="group32"):
         # Connect to the database
         try:
             self.db_connection = mysql.connect(host=HOST, database=DATABASE, user=USER, password=PASSWORD, port=3306)
