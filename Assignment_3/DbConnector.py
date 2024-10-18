@@ -13,8 +13,8 @@ class DbConnector:
     """
 
     def __init__(self,
+                 HOST="tdt4225-32.idi.ntnu.no",
                  DATABASE='DATABASE_NAME',
-                 HOST="tdt4225-xx.idi.ntnu.no",
                  USER="TEST_USER",
                  PASSWORD="test123"):
         uri = "mongodb://%s:%s@%s/%s" % (USER, PASSWORD, HOST, DATABASE)
