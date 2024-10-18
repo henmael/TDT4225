@@ -22,6 +22,7 @@ class ExampleProgram:
         self.counter_trackpoints = 0
         self.counter_transportation = 0
         self.counter_transportation_ignored = 0
+        self.dataset = ""
 
     def create_colls(self, coll_names):
 
@@ -139,19 +140,18 @@ class ExampleProgram:
 
         
     def show_coll(self):
-        collections = self.client['test'].list_collection_names()
+        collections = self.db.list_collection_names()
         print(collections)
-
 
     def insert_data_into_mongo_db(self):
 
          # Read the ids from labeled_ids.txt and store ids in an array;
         ids = []
         # dataset = "../../dataset/dataset/"
-        dataset = "/home/alexandermoltu/Documents/H24/TDT4225/assignment_2/dataset/dataset/"
         try:
-            with open(dataset + 'labeled_ids.txt', 'r') as file:
+            with open(self.dataset + 'labeled_ids.txt', 'r') as file:
                 # Iterate over each line in the file
+                print('opening ' + self.dataset + 'labeled_ids.txt')
                 for line in file:
                     # Strip white space and add to ids list
                     ids.append(line.strip())
@@ -160,13 +160,13 @@ class ExampleProgram:
         except Exception as e:
             print(f"An error occurred: {str(e)}")
          
-        root_dir = os.getcwd()
+        # root_dir = os.getcwd()
         users = []
         activities = []
         activities_id = 0
         trackpoints = []
-        print("working dir: " + root_dir)
-        for foldername, _, filenames in os.walk(root_dir + "/dataset/dataset/Data"):
+        print("Dataset dir: " + self.dataset)
+        for foldername, _, filenames in os.walk(self.dataset + "/Data"):
             
                 # Check if the foldername ends with "Trajectory", if not, it is a user folder
                 if not foldername.endswith("Trajectory") and not foldername.endswith("Data"):
@@ -261,7 +261,7 @@ class ExampleProgram:
         print("finished inserting activities after: " + str(tok - tik) + " seconds.")
 
         labeled_activities = []
-        for foldername, _, filenames in os.walk(root_dir + "/dataset/dataset/Data"):
+        for foldername, _, filenames in os.walk(self.dataset + "/Data"):
             for file in filenames:
                 # only handle txt files
                 if file.endswith("txt"):
@@ -304,26 +304,18 @@ def main():
         program = ExampleProgram()
 
         program.drop_colls(["User", "Activity", "TrackPoint"])
-        print(2)
-
         program.create_colls(["User", "Activity", "TrackPoint"])
-
-        program.drop_colls(["User", "Activity", "TrackPoint"])
-        print(3)
-        
-
-        program.insert_data_into_mongo_db()
+        # program.insert_data_into_mongo_db()
         program.show_coll()
-        print(4)
 
 
-        program.insert_documents(collection_name="Person")
-        program.fetch_documents(collection_name="Person")
-        program.drop_colls(["User", "Activity", "TrackPoint"])
-        program.drop_colls(collection_name='person')
-        program.drop_colls(collection_name='users')
+        # program.insert_documents(collection_name="Person")
+        # program.fetch_documents(collection_name="Person")
+        # program.drop_colls(["User", "Activity", "TrackPoint"])
+        # program.drop_colls(collection_name='person')
+        # program.drop_colls(collection_name='users')
         # Check that the table is dropped
-        program.show_coll()
+        # program.show_coll()
     except Exception as e:
         print("ERROR: Failed to use database:", e)
     finally:

@@ -16,11 +16,11 @@ class DbConnector:
                  HOST="tdt4225-32.idi.ntnu.no",
                  DATABASE='db2',
                  USER="group32-rw",
-                 PASSWORD="group32"):
+                 PASSWORD="<PASSWORD>"):
         uri = "mongodb://%s:%s@%s/%s" % (USER, PASSWORD, HOST, DATABASE)
         # Connect to the databases
         try:
-            self.client = MongoClient(uri)
+            self.client = MongoClient(uri, socketTimeoutMS=1200000, connectTimeoutMS=60000)
             self.db = self.client[DATABASE]
         except Exception as e:
             print("ERROR: Failed to connect to db:", e)
