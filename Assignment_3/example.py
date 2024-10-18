@@ -62,7 +62,9 @@ def main():
     program = None
     try:
         program = ExampleProgram()
-        program.create_coll(collection_name="Person")
+        program.create_coll(collection_name="User")
+        program.create_coll(collection_name="Activity")
+        program.create_coll(collection_name="TrackPoint")
         program.show_coll()
         program.insert_documents(collection_name="Person")
         program.fetch_documents(collection_name="Person")
