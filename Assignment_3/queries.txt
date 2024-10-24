@@ -1,0 +1,50 @@
+alexandermoltu@pop-os:~/Documents/H24/TDT4225/assignment_2/TDT4225/Assignment_3$ python3 part2.py 
+You are connected to the database: db2
+-----------------------------------------------
+
+Number of users: 182
+Number of activities: 16048
+Number of trackpoints: 9665708
+Average number of activities per user: 88.17582417582418
+Top 20 users with the highest number of activities:
+[{'_id': '128', 'activity_count': 2102},
+ {'_id': '153', 'activity_count': 1793},
+ {'_id': '025', 'activity_count': 715},
+ {'_id': '163', 'activity_count': 704},
+ {'_id': '062', 'activity_count': 691},
+ {'_id': '144', 'activity_count': 563},
+ {'_id': '041', 'activity_count': 399},
+ {'_id': '085', 'activity_count': 364},
+ {'_id': '004', 'activity_count': 346},
+ {'_id': '140', 'activity_count': 345},
+ {'_id': '167', 'activity_count': 320},
+ {'_id': '068', 'activity_count': 280},
+ {'_id': '017', 'activity_count': 265},
+ {'_id': '003', 'activity_count': 261},
+ {'_id': '014', 'activity_count': 236},
+ {'_id': '126', 'activity_count': 215},
+ {'_id': '030', 'activity_count': 210},
+ {'_id': '112', 'activity_count': 208},
+ {'_id': '011', 'activity_count': 201},
+ {'_id': '039', 'activity_count': 198}]
+Users who have taken a taxi:
+['010', '058', '062', '078', '080', '085', '098', '111', '128', '163']
+Transportation mode counts:
+[{'_id': 'walk', 'count': 480},
+ {'_id': 'car', 'count': 419},
+ {'_id': 'bike', 'count': 263},
+ {'_id': 'subway', 'count': 133},
+ {'_id': 'airplane', 'count': 3},
+ {'_id': 'boat', 'count': 1},
+ {'_id': 'taxi', 'count': 37},
+ {'_id': 'bus', 'count': 199},
+ {'_id': 'train', 'count': 2},
+ {'_id': 'run', 'count': 1}]
+Year with the most activities:
+[{'_id': 2008, 'activity_count': 5895}]
+Year with the most recorded hours:
+[{'_id': 2009, 'total_duration': 41804726000}]
+Total distance walked in 2008 by user 112: 0.0 km
+
+-----------------------------------------------
+Connection to db2-db is closed
