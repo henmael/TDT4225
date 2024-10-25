@@ -19,12 +19,6 @@ class Task4:
                     '_id': '$user_id'
                 }
             }
-            # {
-            #     '$sort': {'activity_count': -1}
-            # },
-            # {
-            #     '$limit': 20,
-            # }
         ]
 
         users_taxi = collection.aggregate(pipeline)
