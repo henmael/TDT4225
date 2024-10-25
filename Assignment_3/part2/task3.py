@@ -30,6 +30,7 @@ class Task3:
         ]
         activity_per_user = collection.aggregate(pipeline)
         print("Top 20 users with highest activity count")
+        print("-------------------------------------------")
         for i in activity_per_user:
             print(f"UserID: {i['_id']}")
 
