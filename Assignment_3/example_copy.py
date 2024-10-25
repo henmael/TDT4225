@@ -44,7 +44,7 @@ class ExampleProgram:
         collection = self.db[collection_name]
         documents = collection.find({})
         for doc in documents: 
-            pprint(doc)
+            print(doc)
         
 
     def drop_coll(self, collection_name):
