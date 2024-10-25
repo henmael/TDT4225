@@ -8,7 +8,6 @@ class Task2:
     
     def average_activities_per_user(self, collection_name):
         collection = self.db[collection_name]
-        #users_amount_with_activity = collection.count_documents({'has_labels': 0}) # right now 0 for testing
         pipeline = [
             {
                 '$match': {
