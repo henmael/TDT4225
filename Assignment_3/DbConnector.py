@@ -1,4 +1,5 @@
 from pymongo import MongoClient, version
+import os
 
 
 class DbConnector:
@@ -16,7 +17,12 @@ class DbConnector:
                  HOST="tdt4225-32.idi.ntnu.no",
                  DATABASE='db2',
                  USER="mongo32",
-                 PASSWORD="<password>"):
+                 PASSWORD=None):
+        
+        # use password set in .env file
+        if PASSWORD is None:
+            PASSWORD = os.getenv("DBPASSWORD")
+
         uri = "mongodb://%s:%s@%s/%s" % (USER, PASSWORD, HOST, DATABASE)
         # Connect to the databases
         try:
