@@ -15,8 +15,8 @@ class DbConnector:
     def __init__(self,
                  HOST="tdt4225-32.idi.ntnu.no",
                  DATABASE='db2',
-                 USER="group32-rw",
-                 PASSWORD="group32"):
+                 USER="mongo32",
+                 PASSWORD="password123"):
         uri = "mongodb://%s:%s@%s/%s" % (USER, PASSWORD, HOST, DATABASE)
         # Connect to the databases
         try:

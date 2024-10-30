@@ -1,5 +1,5 @@
 from DbConnector import DbConnector
-
+# Find the average number of activities per user.
 class Task2: 
     def __init__(self):
         self.connection = DbConnector()
@@ -32,6 +32,8 @@ class Task2:
             result_pluss = p
             i+=1
 
+        print("Find the average number of activities per user: ")
+        print("------------------------------------------------")
         average = result_pluss / i
         print(f"Average activity per user: {round(average, 4)}")
 

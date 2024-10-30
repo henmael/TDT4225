@@ -239,13 +239,10 @@ def main():
 
         program.drop_colls(["User", "Activity", "TrackPoint"])
         program.create_colls(["User", "Activity", "TrackPoint"])
-        # program.insert_data_into_mongo_db()
         program.show_coll()
 
-        program.fetch_documents(collection_name="Person")
-        program.drop_colls(["User", "Activity", "TrackPoint"])
-        program.drop_colls(collection_name='Person')
-        program.drop_colls(collection_name='users')
+        #program.fetch_documents(collection_name="Person")
+        # program.drop_colls(["User", "Activity", "TrackPoint"])
         # Check that the table is dropped
         program.show_coll()
     except Exception as e:

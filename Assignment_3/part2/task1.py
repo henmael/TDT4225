@@ -1,5 +1,5 @@
 from DbConnector import DbConnector
-
+# How many users, activities and trackpoints are there in the dataset (after it is inserted into the database).
 class Task1: 
     def __init__(self):
         self.connection = DbConnector()
@@ -12,6 +12,8 @@ class Task1:
         print(f"{collection_name} : {documents}\n")
 
     def fetch_users_activities_trackpoints_amounts(self):
+        print("How many users, activities and trackpoints are there in the dataset: ")
+        print("--------------------------------------------------------------------")
         self.fetch_amount_collections("User")
         self.fetch_amount_collections("Activity")
         self.fetch_amount_collections("TrackPoint")

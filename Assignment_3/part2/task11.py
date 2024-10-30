@@ -7,8 +7,8 @@ class Task11:
         self.db = self.connection.db
 
     def registered_transportation_most_used_transportation(self, collection_name):
-        # The answer should be on format (user_id, most_used_transportation_mode) sorted on user_id.
-        # Some users may have the same number of activities tagged with e.g. walk and car. 
+        # The answer should be on format (user_id, most_used_transportation_mode) sorted on user_id. --- this is also done
+        # Some users may have the same number of activities tagged with e.g. walk and car.  --- its also done
             #  In this case it is up to you to decide which transportation mode to include in your answer (choose one). 
         # Do not count the rows where the mode is null. ----- its done
         collection = self.db[collection_name]
@@ -44,11 +44,26 @@ class Task11:
         print("----------------------------------------------------------------------------------------------")
         for i in t: 
             print(f"(user_id {i['_id']} most_common_transport {i['most_common_transport']})")
-        # for i in t:
-        #     print(i)
+
+    def return_user_xxx_activities(self, collection_name):
+        collection = self.db[collection_name]
+        pipeline = [
+            {
+                '$match': {
+                    'transportation_mode': {'$ne': None},
+                    'user_id': '175' #change to check different users if unsure of result
+                },
+
+            }
+        ]
+
+        test = collection.aggregate(pipeline)
+        for i in test: 
+            print(i)
 
 def task11_main():
     program = Task11()
     program.registered_transportation_most_used_transportation("Activity")
+    # program.return_user_xxx_activities("Actvity")
     program.connection.close_connection()
 

@@ -16,9 +16,11 @@ class Task4:
             },
             {
                 '$group': {
-                    '_id': '$user_id'
+                    '_id': '$user_id',
+                    'transportation_mode': {'$first': '$transportation_mode'}
                 }
-            }
+            },
+
         ]
 
         users_taxi = collection.aggregate(pipeline)
@@ -27,7 +29,7 @@ class Task4:
         print("Users who have taken a taxi: ")
         print("-----------------------------")
         for i in test: 
-            print(f"UserID: {i['_id']}")
+            print(f"UserID: {i['_id']}  |   Activity: {i['transportation_mode']}")
 
 
 def task4_main():
