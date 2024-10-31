@@ -1,5 +1,5 @@
 from part2.task10 import task10_main
-from part2.task7 import task7_main
+from part2.task8 import task8_main
 from part2.task5 import task5_main
 from part2.task11 import task11_main
 from part2.task6 import task6_main
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     #task5_main()
     #task6_main()
     #task7_main()
-    # task8_main()
+    task8_main()
     # task9_main()
     task10_main()
     #task11_main()
