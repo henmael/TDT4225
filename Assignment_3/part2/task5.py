@@ -1,5 +1,9 @@
+import pprint
 from DbConnector import DbConnector
 
+# Find all types of transportation modes and count how many activities 
+    # that are tagged with these transportation mode labels. Do not count the rows where 
+    # the mode is null.
 class Task5: 
     def __init__(self):
         self.connection = DbConnector()
@@ -26,7 +30,11 @@ class Task5:
         activity_per_user = collection.aggregate(pipeline)
 
         for transportation_activities in activity_per_user:
-            print(transportation_activities)
+            formatted_activity = {
+                'activity': transportation_activities['_id'],
+                'sum': transportation_activities['count']
+            }
+            pprint.pp(formatted_activity)
 
 
 def task5_main():

@@ -1,3 +1,4 @@
+import pprint
 from DbConnector import DbConnector
 # Find the top 20 users with the highest number of activities
 class Task3: 
@@ -28,10 +29,10 @@ class Task3:
             }
         ]
         activity_per_user = collection.aggregate(pipeline)
-        print("Top 20 users with highest activity count")
+        print("Top 20 users with highest activity count:")
         print("-------------------------------------------")
         for index, user in enumerate(activity_per_user, start=1):
-            print(f"{index} UserID: {user['_id']}   |   Amount of activities: {user['activity_count']}")
+            pprint.pp(f"{index} UserID: {user['_id']}   |   Amount of activities: {user['activity_count']}")
 
 
 def task3_main():

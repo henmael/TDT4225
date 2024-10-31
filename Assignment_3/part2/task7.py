@@ -1,5 +1,6 @@
 import datetime
 import math
+import pprint
 from DbConnector import DbConnector
 from haversine import haversine, Unit
 
@@ -28,7 +29,7 @@ class Task7:
         trackpoints = []
 
         for activities in test:
-            # activity_id.append(activities['_id'])
+
             activity_tp = trackpoint_collection.find(
                 {'activities_id': activities['_id']},
                 {'lat': 1, 'lon': 1, 'activities_id': 1}).batch_size(1000)
@@ -49,11 +50,7 @@ class Task7:
             prev_lat = lat
             prev_lon = lon
 
-        
-        print("total distance: "+total_distance)
-     
-            
-            
+        pprint.pp(f"Total distance: {total_distance}")      
         
 
 def task7_main():

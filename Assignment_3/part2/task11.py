@@ -1,3 +1,4 @@
+import pprint
 from DbConnector import DbConnector
 # Find all users who have registered transportation_mode and their most used transportation_mode.
 class Task11: 
@@ -42,28 +43,15 @@ class Task11:
         t = sorted(test, key=lambda x: x['_id'])
         print("Users who have registered transportation_mode and their most used transportation_mode: ")
         print("----------------------------------------------------------------------------------------------")
-        for i in t: 
-            print(f"(user_id {i['_id']} most_common_transport {i['most_common_transport']})")
-
-    def return_user_xxx_activities(self, collection_name):
-        collection = self.db[collection_name]
-        pipeline = [
-            {
-                '$match': {
-                    'transportation_mode': {'$ne': None},
-                    'user_id': '175' #change to check different users if unsure of result
-                },
-
+        for transportation_activities_user in t: 
+            formatted_trackpoint = {
+                'user_id': transportation_activities_user['_id'],
+                'most_used_transportation_mode': transportation_activities_user['most_common_transport']
             }
-        ]
-
-        test = collection.aggregate(pipeline)
-        for i in test: 
-            print(i)
+            pprint.pp(formatted_trackpoint)
 
 def task11_main():
     program = Task11()
     program.registered_transportation_most_used_transportation("Activity")
-    # program.return_user_xxx_activities("Actvity")
     program.connection.close_connection()
 

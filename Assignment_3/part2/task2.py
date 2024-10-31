@@ -1,3 +1,4 @@
+import pprint
 from DbConnector import DbConnector
 # Find the average number of activities per user.
 class Task2: 
@@ -35,7 +36,7 @@ class Task2:
         print("Find the average number of activities per user: ")
         print("------------------------------------------------")
         average = result_pluss / i
-        print(f"Average activity per user: {round(average, 4)}")
+        pprint.pp(f"Average activity per user: {round(average, 4)}")
 
 
 def task2_main():

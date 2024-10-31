@@ -1,3 +1,4 @@
+import pprint
 from DbConnector import DbConnector
 # How many users, activities and trackpoints are there in the dataset (after it is inserted into the database).
 class Task1: 
@@ -9,7 +10,7 @@ class Task1:
     def fetch_amount_collections(self, collection_name):
         collection = self.db[collection_name]
         documents = collection.count_documents({})
-        print(f"{collection_name} : {documents}\n")
+        pprint.pp(f"{collection_name} : {documents}")
 
     def fetch_users_activities_trackpoints_amounts(self):
         print("How many users, activities and trackpoints are there in the dataset: ")

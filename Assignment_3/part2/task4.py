@@ -1,3 +1,4 @@
+import pprint
 from DbConnector import DbConnector
 # Find all users who have taken a taxi.
 class Task4: 
@@ -29,7 +30,7 @@ class Task4:
         print("Users who have taken a taxi: ")
         print("-----------------------------")
         for i in test: 
-            print(f"UserID: {i['_id']}  |   Activity: {i['transportation_mode']}")
+            pprint.pp(f"UserID: {i['_id']}  |   Activity: {i['transportation_mode']}")
 
 
 def task4_main():
