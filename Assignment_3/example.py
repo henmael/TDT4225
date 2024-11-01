@@ -9,7 +9,6 @@ from pymongo import UpdateOne
 
 
 class ExampleProgram:
-
     def __init__(self):
         self.connection = DbConnector()
         self.client = self.connection.client
@@ -19,7 +18,6 @@ class ExampleProgram:
         self.counter_transportation = 0
         self.counter_transportation_ignored = 0
         self.dataset = ""
-
     def create_colls(self, coll_names):
         for coll_name in coll_names:
             self.db.create_collection(coll_name)
@@ -239,10 +237,13 @@ def main():
 
         program.drop_colls(["User", "Activity", "TrackPoint"])
         program.create_colls(["User", "Activity", "TrackPoint"])
+        # program.insert_data_into_mongo_db()
         program.show_coll()
 
-        #program.fetch_documents(collection_name="Person")
-        # program.drop_colls(["User", "Activity", "TrackPoint"])
+        program.fetch_documents("Person")
+        program.drop_colls(["User", "Activity", "TrackPoint"])
+        program.drop_colls('Person')
+        program.drop_colls('users')
         # Check that the table is dropped
         program.show_coll()
     except Exception as e:
@@ -250,7 +251,6 @@ def main():
     finally:
         if program:
             program.connection.close_connection()
-
 
 if __name__ == '__main__':
     main()
