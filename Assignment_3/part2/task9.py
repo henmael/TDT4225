@@ -13,8 +13,6 @@ class Task9:
         self.db = self.connection.db
 
     def user_invalid_activities(self):
-        # print("Query 9: Users with invalid activities:")
-
         pipeline_invalid_activities = [
             {
                 "$sort": {
@@ -90,13 +88,7 @@ class Task9:
         ]
 
         invalid_activities = list(self.db["TrackPoint"].aggregate(pipeline_invalid_activities))
-        # print(invalid_activities)
-
-        # print("Total: ", str(len(invalid_activities)), " activities")
-        # result = list(self.db["Activity"].aggregate(pipeline))
-        # print("User with the most invalid activities:")
         pprint(invalid_activities)
-
 
 
 def task9_main():
