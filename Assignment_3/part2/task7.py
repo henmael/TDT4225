@@ -4,6 +4,7 @@ import pprint
 from DbConnector import DbConnector
 from haversine import haversine, Unit
 
+#   Find the total distance (in km) walked in 2008, by user with id=112
 class Task7: 
     def __init__(self):
         self.connection = DbConnector()
@@ -50,6 +51,8 @@ class Task7:
             prev_lat = lat
             prev_lon = lon
 
+        print("Total distance walked by user 112 in 2008 in km: ")     
+        print("----------------------------------------------------")
         pprint.pp(f"Total distance: {total_distance}")      
         
 

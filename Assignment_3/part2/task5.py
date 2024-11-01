@@ -29,6 +29,8 @@ class Task5:
 
         activity_per_user = collection.aggregate(pipeline)
 
+        print("Activities per transportation mode: ")
+        print("-------------------------------------")
         for transportation_activities in activity_per_user:
             formatted_activity = {
                 'activity': transportation_activities['_id'],
