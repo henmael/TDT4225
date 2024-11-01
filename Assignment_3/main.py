@@ -18,17 +18,15 @@ if __name__ == '__main__':
         for line in f:
             name, value = line.strip().split('=', 1)
             os.environ[name] = value
-    # Insert tables and values in database
-    # trajector_main()
-    # task1_main()
-    #task2_main()
-    #task3_main()
-    #task4_main()
-    #task5_main()
-    #task6_main()
-    #task7_main()
+    task1_main()
+    task2_main()
+    task3_main()
+    task4_main()
+    task5_main()
+    task6_main()
+    task7_main()
     task8_main()
-    # task9_main()
+    task9_main()
     task10_main()
-    #task11_main()
+    task11_main()
 
